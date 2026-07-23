@@ -5,7 +5,7 @@ public class Main {
         Scanner in = new Scanner(System.in);
         Solution1 sol = new Solution1();
 
-        System.out.print("introduce how many nodes do youi want in your list);
+        System.out.print("introduce the number of nodes do you want in your list);
         int n = in.nextInt();
 
         if (n <= 0) {
