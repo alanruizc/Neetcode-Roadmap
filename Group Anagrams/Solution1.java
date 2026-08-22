@@ -6,18 +6,17 @@ import java.util.Map;
 
 class Solution1 {
     public List<List<String>> groupAnagrams(String[] strs) {
-        if(strs == null || strs.length == 0){
-            return new ArrayList<>();
+        if (strs == null || strs.length == 0) {
+            return Collections.emptyList();
         }
 
-        Map <String, List<String>> map = new HashMap<>();
-        for (String s : strs){
-            char[] charArray = s.toCharArray();
-            Arrays.sort(charArray);
-            String clave = new String(charArray);
+        Map<String, List<String>> map = new HashMap<>();
+        for (String s : strs) {
+            char[] chars = s.toCharArray();
+            Arrays.sort(chars);
+            String key = new String(chars);
 
-            map.putIfAbsent(clave, new ArrayList<>());
-            map.get(clave).add(s);
+            map.computeIfAbsent(key, k -> new ArrayList<>()).add(s);
         }
 
         return new ArrayList<>(map.values());
