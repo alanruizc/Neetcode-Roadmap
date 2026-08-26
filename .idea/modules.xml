@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Neetcode-Roadmap.iml" filepath="$PROJECT_DIR$/Neetcode-Roadmap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Valid Palindrome/Valid Palindrome.iml" filepath="$PROJECT_DIR$/Valid Palindrome/Valid Palindrome.iml" />
     </modules>
   </component>
 </project>
