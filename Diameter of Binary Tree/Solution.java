@@ -13,8 +13,10 @@ public class Solution {
         int rightDepth = calculateDepth(node.right);
 
         int pathThroughNode = leftDepth + rightDepth;
-        maxDiameter = Math.max(maxDiameter, pathThroughNode);
-
-        return 1 + Math.max(leftDepth, rightDepth);
+        int sum = leftDepth + rightDepth;
+        if (sum > maxDiameter) {
+            maxDiameter = sum;
+        }
+        return 1 + (leftDepth > rightDepth ? leftDepth : rightDepth);
     }
 }
