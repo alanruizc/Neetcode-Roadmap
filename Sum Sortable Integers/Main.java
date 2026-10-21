@@ -6,8 +6,13 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Solution solution = new Solution();
         while (true) {
-            System.out.println("\nenter space separated integers:");
+            System.out.println("\nenter space separated integers or enter exit");
             String input = scanner.nextLine().trim();
+
+            if (input.equalsIgnoreCase("exit")) {
+                System.out.println("bye");
+                break;
+            }
 
             if (input.isEmpty()) {
                 System.out.println("Input cannot be empty.");
