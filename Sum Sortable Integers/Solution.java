@@ -1,21 +1,10 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Solution {
     public int sortableIntegers(int[] nums) {
         int n = nums.length;
-        List<Integer> divisors = new ArrayList<>();
-
-        for (int i = 1; i <= n; i++) {
-            if (n % i == 0) {
-                divisors.add(i);
-            }
-        }
-
         int totalSum = 0;
 
-        for (int k : divisors) {
-            if (isSortable(nums, n, k)) {
+        for (int k = 1; k <= n; k++) {
+            if (n % k == 0 && isSortable(nums, n, k)) {
                 totalSum += k;
             }
         }
@@ -24,23 +13,12 @@ public class Solution {
     }
 
     private boolean isSortable(int[] nums, int n, int k) {
-        int numBlocks = n / k;
         int prevBlockMax = Integer.MIN_VALUE;
 
-        for (int b = 0; b < numBlocks; b++) {
-            int start = b * k;
-
-            if (k == 1) {
-                if (nums[start] < prevBlockMax) {
-                    return false;
-                }
-                prevBlockMax = nums[start];
-                continue;
-            }
-
+        for (int start = 0; start < n; start += k) {
             int dropCount = 0;
-            int minVal = Integer.MAX_VALUE;
-            int maxVal = Integer.MIN_VALUE;
+            int minVal = nums[start];
+            int maxVal = nums[start];
 
             for (int i = 0; i < k; i++) {
                 int curr = nums[start + i];
@@ -49,16 +27,15 @@ public class Solution {
                 if (curr > next) {
                     dropCount++;
                 }
-
-                if (curr < minVal) minVal = curr;
-                if (curr > maxVal) maxVal = curr;
+                if (curr < minVal) {
+                    minVal = curr;
+                }
+                if (curr > maxVal) {
+                    maxVal = curr;
+                }
             }
 
-            if (dropCount > 1) {
-                return false;
-            }
-
-            if (minVal < prevBlockMax) {
+            if (dropCount > 1 || minVal < prevBlockMax) {
                 return false;
             }
 
