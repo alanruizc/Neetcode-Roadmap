@@ -1,10 +1,12 @@
 public class Solution {
+
     public int sortableIntegers(int[] nums) {
         int n = nums.length;
         int totalSum = 0;
 
         for (int k = 1; k <= n; k++) {
-            if (n % k == 0 && isSortable(nums, n, k)) {
+            // check if k is a divisor and if the array is sortable with block size k
+            if (n % k == 0 && isSortable(nums, k)) {
                 totalSum += k;
             }
         }
@@ -12,29 +14,25 @@ public class Solution {
         return totalSum;
     }
 
-    private boolean isSortable(int[] nums, int n, int k) {
+    private boolean isSortable(int[] nums, int k) {
         int prevBlockMax = Integer.MIN_VALUE;
 
-        for (int start = 0; start < n; start += k) {
+        // process the array in chunks of size k
+        for (int start = 0; start < nums.length; start += k) {
             int dropCount = 0;
-            int minVal = nums[start];
-            int maxVal = nums[start];
+            int minVal = Integer.MAX_VALUE;
+            int maxVal = Integer.MIN_VALUE;
 
             for (int i = 0; i < k; i++) {
                 int curr = nums[start + i];
-                int next = nums[start + (i + 1) % k];
+                int next = nums[start + (i + 1) % k]; // wrap around to the start of the block
 
+                minVal = Math.min(minVal, curr);
+                maxVal = Math.max(maxVal, curr);
                 if (curr > next) {
                     dropCount++;
                 }
-                if (curr < minVal) {
-                    minVal = curr;
-                }
-                if (curr > maxVal) {
-                    maxVal = curr;
-                }
             }
-
             if (dropCount > 1 || minVal < prevBlockMax) {
                 return false;
             }
