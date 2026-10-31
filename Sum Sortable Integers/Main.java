@@ -3,39 +3,38 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         Solution solution = new Solution();
-        while (true) {
-            System.out.println("\nenter space separated integers or enter exit");
-            String input = scanner.nextLine().trim();
 
-            if (input.equalsIgnoreCase("exit")) {
-                System.out.println("bye");
-                break;
-            }
+        // try-with-resources automatically closes the scanner
+        try (Scanner scanner = new Scanner(System.in)) {
+            while (true) {
+                System.out.println("\nEnter space-separated integers (or enter 'exit' to quit):");
+                String input = scanner.nextLine().trim();
 
-            if (input.isEmpty()) {
-                System.out.println("Input cannot be empty.");
-                continue;
-            }
-
-            try {
-                String[] tokens = input.split("\\s+");
-                int[] nums = new int[tokens.length];
-                for (int i = 0; i < tokens.length; i++) {
-                    nums[i] = Integer.parseInt(tokens[i]);
+                if (input.equalsIgnoreCase("exit")) {
+                    System.out.println("Bye!");
+                    break;
                 }
 
-                int result = solution.sortableIntegers(nums);
+                if (input.isEmpty()) {
+                    System.out.println("Input cannot be empty.");
+                    continue;
+                }
 
-                System.out.println("Input Array : " + Arrays.toString(nums));
-                System.out.println("Output      : " + result);
+                try {
+                    int[] nums = Arrays.stream(input.split("\\s+"))
+                            .mapToInt(Integer::parseInt)
+                            .toArray();
 
-            } catch (NumberFormatException e) {
-                System.out.println("enter valid integers separated by spaces.");
+                    int result = solution.sortableIntegers(nums);
+
+                    System.out.println("Input Array : " + Arrays.toString(nums));
+                    System.out.println("Output      : " + result);
+
+                } catch (NumberFormatException e) {
+                    System.out.println("Please enter valid integers separated by spaces");
+                }
             }
         }
-
-        scanner.close();
     }
 }
